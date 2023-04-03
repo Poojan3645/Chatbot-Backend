@@ -31,3 +31,24 @@ exports.getAreaById = async (req, res) => {
     console.log(err);
   }
 };
+exports.getUpdateArea = async (req, res) => {
+  try {
+    const { _id, areaname } = req.body;
+    const result = await Area.findByIdAndUpdate(
+      { _id },
+      {
+        $set: {
+          areaname: areaname,
+        },
+      },
+      {
+        new: true,
+        useFindAndModify: false,
+      }
+    );
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+  }
+  res.send("done");
+};

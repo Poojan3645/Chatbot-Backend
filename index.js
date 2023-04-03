@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const bodyparser = require("body-parser");
+const cors = require("cors");
 const app = express();
 
 const adminRoutes = require("./routes/admin.js");
@@ -23,7 +24,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use(express.json());
-
+app.use(cors());
 app.use("/", adminRoutes);
 app.use("/cars", carRoutes);
 app.use("/area", areaRoutes);
@@ -32,4 +33,4 @@ app.use("/dealer", dealerRoutes);
 app.use("/FAQ", FAQRoutes);
 app.use("/specification", SpecificationRoutes);
 
-app.listen(3000, () => console.log("server on!"));
+app.listen(3030, () => console.log("server on!"));

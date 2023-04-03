@@ -20,3 +20,24 @@ exports.getCompany = async (req, res) => {
     console.log(err);
   }
 };
+exports.getUpdatecompany = async (req, res) => {
+  try {
+    const { _id, companyname } = req.body;
+    const result = await Company.findByIdAndUpdate(
+      { _id },
+      {
+        $set: {
+          companyname: companyname,
+        },
+      },
+      {
+        new: true,
+        useFindAndModify: false,
+      }
+    );
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+  }
+  res.send("done");
+};

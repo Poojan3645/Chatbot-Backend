@@ -19,3 +19,24 @@ exports.getFAQ = async (req, res) => {
     console.log(err);
   }
 };
+exports.getUpdateFAQ = async (req, res) => {
+  try {
+    const { _id, FAQ } = req.body;
+    const result = await FAQ.findByIdAndUpdate(
+      { _id },
+      {
+        $set: {
+          FAQ: FAQ,
+        },
+      },
+      {
+        new: true,
+        useFindAndModify: false,
+      }
+    );
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+  }
+  res.send("done");
+};

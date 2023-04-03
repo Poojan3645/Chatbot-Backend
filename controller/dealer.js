@@ -27,9 +27,10 @@ exports.getDealer = async (req, res) => {
 };
 exports.getDealerById = async (req, res) => {
   try {
-    const { dealerId } = req.body;
+    const { dealerId, companyId } = req.body;
     const result = await Dealer.find({
       _id: { $in: dealerId },
+      companyId,
     });
     res.send(result);
   } catch (err) {

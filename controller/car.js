@@ -66,7 +66,27 @@ exports.findCars = async (req, res) => {
     console.log(err);
   }
 };
-
+exports.getUpdateCar = async (req, res) => {
+  try {
+    const { _id, carname } = req.body;
+    const result = await Cars.findByIdAndUpdate(
+      { _id },
+      {
+        $set: {
+          carname: carname,
+        },
+      },
+      {
+        new: true,
+        useFindAndModify: false,
+      }
+    );
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+  }
+  res.send("done");
+};
 // ({
 //   fuel: fuel,
 //   type: type,
