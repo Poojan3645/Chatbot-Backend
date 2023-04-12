@@ -66,26 +66,56 @@ exports.findCars = async (req, res) => {
     console.log(err);
   }
 };
+// exports.getUpdateCar = async (req, res) => {
+//   try {
+//     const { _id, carname } = req.body;
+//     const result = await Cars.findByIdAndUpdate(
+//       { _id },
+//       {
+//         $set: {
+//           carname: carname,
+//         },
+//       },
+//       {
+//         new: true,
+//         useFindAndModify: false,
+//       }
+//     );
+//     console.log(result);
+//   } catch (err) {
+//     console.log(err);
+//   }
+//   res.send("done");
+// };
+
 exports.getUpdateCar = async (req, res) => {
+  console.log("done");
   try {
-    const { _id, carname } = req.body;
-    const result = await Cars.findByIdAndUpdate(
-      { _id },
+    const { carname, fuel, type, price, specification, companyId, areaId } =
+      req.body;
+
+    const _id = req.params.id;
+    const updatedResult = await Cars.findOneAndUpdate(
+      { _id: "6417e1d06706e5efaaeb1c4d" },
       {
         $set: {
-          carname: carname,
+          carname,
+          fuel,
+          type,
+          price,
+          specification,
+          companyId,
+          areaId,
         },
       },
-      {
-        new: true,
-        useFindAndModify: false,
-      }
+      { new: true }
     );
-    console.log(result);
-  } catch (err) {
-    console.log(err);
+    console.log("data was updated", updatedResult);
+    res.status(200).json(updatedResult);
+  } catch (error) {
+    console.log(error.message);
+    res.status(501).json({ message: error.message });
   }
-  res.send("done");
 };
 // ({
 //   fuel: fuel,

@@ -19,24 +19,48 @@ exports.getFAQ = async (req, res) => {
     console.log(err);
   }
 };
+// exports.getUpdateFAQ = async (req, res) => {
+//   try {
+//     const { _id, FAQ } = req.body;
+//     const result = await FAQ.findByIdAndUpdate(
+//       { _id },
+//       {
+//         $set: {
+//           FAQ: FAQ,
+//         },
+//       },
+//       {
+//         new: true,
+//         useFindAndModify: false,
+//       }
+//     );
+//     console.log(result);
+//   } catch (err) {
+//     console.log(err);
+//   }
+//   res.send("done");
+// };
+
 exports.getUpdateFAQ = async (req, res) => {
+  console.log("done");
   try {
-    const { _id, FAQ } = req.body;
-    const result = await FAQ.findByIdAndUpdate(
-      { _id },
+    const { question, answer } = req.body;
+
+    const _id = req.params.id;
+    const updatedResult = await FAQ.findOneAndUpdate(
+      { _id: "64193b5a13903f974d13d1ed" },
       {
         $set: {
-          FAQ: FAQ,
+          question,
+          answer,
         },
       },
-      {
-        new: true,
-        useFindAndModify: false,
-      }
+      { new: true }
     );
-    console.log(result);
-  } catch (err) {
-    console.log(err);
+    console.log("data was updated", updatedResult);
+    res.status(200).json(updatedResult);
+  } catch (error) {
+    console.log(error.message);
+    res.status(501).json({ message: error.message });
   }
-  res.send("done");
 };

@@ -20,24 +20,49 @@ exports.getCompany = async (req, res) => {
     console.log(err);
   }
 };
+// exports.getUpdatecompany = async (req, res) => {
+//   try {
+//     const { _id, companyname } = req.body;
+//     const result = await Company.findByIdAndUpdate(
+//       { _id },
+//       {
+//         $set: {
+//           companyname: companyname,
+//         },
+//       },
+//       {
+//         new: true,
+//         useFindAndModify: false,
+//       }
+//     );
+//     console.log(result);
+//   } catch (err) {
+//     console.log(err);
+//   }
+//   res.send("done");
+// };
+
 exports.getUpdatecompany = async (req, res) => {
+  console.log("done");
   try {
-    const { _id, companyname } = req.body;
-    const result = await Company.findByIdAndUpdate(
-      { _id },
+    const { CarId, companyname, areaId } = req.body;
+
+    const _id = req.params.id;
+    const updatedResult = await Company.findOneAndUpdate(
+      { _id: "641451486761a876a44b04c3" },
       {
         $set: {
-          companyname: companyname,
+          CarId,
+          companyname,
+          areaId,
         },
       },
-      {
-        new: true,
-        useFindAndModify: false,
-      }
+      { new: true }
     );
-    console.log(result);
-  } catch (err) {
-    console.log(err);
+    console.log("data was updated", updatedResult);
+    res.status(200).json(updatedResult);
+  } catch (error) {
+    console.log(error.message);
+    res.status(501).json({ message: error.message });
   }
-  res.send("done");
 };

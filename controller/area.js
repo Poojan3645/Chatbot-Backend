@@ -31,24 +31,48 @@ exports.getAreaById = async (req, res) => {
     console.log(err);
   }
 };
+// exports.getUpdateArea = async (req, res) => {
+//   try {
+//     const { _id, areaname } = req.body;
+//     const result = await Area.findByIdAndUpdate(
+//       { _id },
+//       {
+//         $set: {
+//           areaname: areaname,
+//         },
+//       },
+//       {
+//         new: true,
+//         useFindAndModify: false,
+//       }
+//     );
+//     console.log(result);
+//   } catch (err) {
+//     console.log(err);
+//   }
+//   res.send("done");
+// };
+
 exports.getUpdateArea = async (req, res) => {
+  console.log("done");
   try {
-    const { _id, areaname } = req.body;
-    const result = await Area.findByIdAndUpdate(
-      { _id },
+    const { areaname, dealerId } = req.body;
+
+    const _id = req.params.id;
+    const updatedResult = await Area.findOneAndUpdate(
+      { _id: "641442cb6761a876a44b049a" },
       {
         $set: {
-          areaname: areaname,
+          areaname,
+          dealerId,
         },
       },
-      {
-        new: true,
-        useFindAndModify: false,
-      }
+      { new: true }
     );
-    console.log(result);
-  } catch (err) {
-    console.log(err);
+    console.log("data was updated", updatedResult);
+    res.status(200).json(updatedResult);
+  } catch (error) {
+    console.log(error.message);
+    res.status(501).json({ message: error.message });
   }
-  res.send("done");
 };

@@ -22,9 +22,37 @@ exports.createSpecification = async (req, res) => {
 };
 exports.getSpecification = async (req, res) => {
   try {
-    const result = await Specification({});
+    const result = await Specification.find({});
     res.send(result);
   } catch (err) {
     console.log(err);
+  }
+};
+exports.getUpdateSpecification = async (req, res) => {
+  console.log("done");
+  try {
+    const { engine, mileage, wheels, safety, transmission, fueltype } =
+      req.body;
+
+    const _id = req.params.id;
+    const updatedResult = await Specification.findOneAndUpdate(
+      { _id: "642d00a7ea3c63de81fa47e3" },
+      {
+        $set: {
+          engine,
+          mileage,
+          wheels,
+          safety,
+          transmission,
+          fueltype,
+        },
+      },
+      { new: true }
+    );
+    console.log("data was updated", updatedResult);
+    res.status(200).json(updatedResult);
+  } catch (error) {
+    console.log(error.message);
+    res.status(501).json({ message: error.message });
   }
 };

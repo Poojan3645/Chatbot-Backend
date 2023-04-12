@@ -7,6 +7,6 @@ const areaController = require("../controller/area");
 router.post("/", areaController.createArea);
 router.get("/", areaController.getArea);
 router.post("/areaById", areaController.getAreaById);
-router.post("/updatearea", areaController.getUpdateArea);
+router.put("/updatearea", areaController.getUpdateArea);
 
 module.exports = router;

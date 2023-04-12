@@ -9,6 +9,10 @@ const dealerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  companyId: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Company",
+  },
   // CarId: {
   //   type: mongoose.Schema.ObjectId,
   //   ref: "Cars",
