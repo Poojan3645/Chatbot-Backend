@@ -9,4 +9,5 @@ router.get("/", carController.getCars);
 router.post("/CarByCompany", carController.getCarByCompanyId);
 router.post("/findCarByPrice", carController.findCars);
 router.put("/getCarUpdate", carController.getUpdateCar);
+router.delete("/deletecar", carController.getDeleteCar);
 module.exports = router;

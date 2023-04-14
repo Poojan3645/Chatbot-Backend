@@ -45,11 +45,11 @@ exports.findCars = async (req, res) => {
     let matchPrice = {};
     const query = {};
     if (fuel !== "") {
-      query.fuel = fuel;
+      query.fuel = { $regex: fuel, $options: "i" };
     }
     // console.log(query);
     if (type !== "") {
-      query.type = type;
+      query.type = { $regex: type, $options: "i" };
     }
     // console.log(query);
     if (minPrice !== 0 && maxPrice !== 0) {
@@ -66,27 +66,20 @@ exports.findCars = async (req, res) => {
     console.log(err);
   }
 };
-// exports.getUpdateCar = async (req, res) => {
-//   try {
-//     const { _id, carname } = req.body;
-//     const result = await Cars.findByIdAndUpdate(
-//       { _id },
-//       {
-//         $set: {
-//           carname: carname,
-//         },
-//       },
-//       {
-//         new: true,
-//         useFindAndModify: false,
-//       }
-//     );
-//     console.log(result);
-//   } catch (err) {
-//     console.log(err);
-//   }
-//   res.send("done");
-// };
+
+exports.getDeleteCar = async (req, res) => {
+  console.log("deleted");
+  try {
+    const _id = req.body;
+    console.log(_id);
+    const deletedResult = await Cars.deleteOne({ _id });
+    console.log("data was deleted", deletedResult);
+    res.status(200).json(deletedResult);
+  } catch (error) {
+    console.log(error.message);
+    res.status(501).json({ message: error.message });
+  }
+};
 
 exports.getUpdateCar = async (req, res) => {
   console.log("done");

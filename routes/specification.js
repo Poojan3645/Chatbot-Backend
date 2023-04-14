@@ -10,4 +10,9 @@ router.put(
   "/getUpdateSpecification",
   specificationController.getUpdateSpecification
 );
+router.delete(
+  "/deletespecification",
+  specificationController.getDeleteSpecification
+);
+
 module.exports = router;

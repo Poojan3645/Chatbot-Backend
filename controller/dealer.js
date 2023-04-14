@@ -64,3 +64,16 @@ exports.getUpdateDealer = async (req, res) => {
     res.status(501).json({ message: error.message });
   }
 };
+exports.getDeleteDealer = async (req, res) => {
+  console.log("deleted");
+  try {
+    const _id = req.body;
+    console.log(_id);
+    const deletedResult = await Dealer.deleteOne({ _id });
+    console.log("data was deleted", deletedResult);
+    res.status(200).json(deletedResult);
+  } catch (error) {
+    console.log(error.message);
+    res.status(501).json({ message: error.message });
+  }
+};

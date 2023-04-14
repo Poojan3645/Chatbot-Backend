@@ -31,26 +31,28 @@ exports.getAreaById = async (req, res) => {
     console.log(err);
   }
 };
-// exports.getUpdateArea = async (req, res) => {
+
+exports.getDeleteArea = async (req, res) => {
+  console.log("deleted ");
+  try {
+    const _id = req.body;
+    console.log(_id);
+    const deletedResult = await Area.deleteOne({ _id });
+    console.log("data was deleted", deletedResult);
+    res.status(200).json(deletedResult);
+  } catch (error) {
+    console.log(error.message);
+    res.status(501).json({ message: error.message });
+  }
+};
+
+// const deleteDocument = async (_id) => {
 //   try {
-//     const { _id, areaname } = req.body;
-//     const result = await Area.findByIdAndUpdate(
-//       { _id },
-//       {
-//         $set: {
-//           areaname: areaname,
-//         },
-//       },
-//       {
-//         new: true,
-//         useFindAndModify: false,
-//       }
-//     );
+//     const result = await Employee.deleteOne({ _id });
 //     console.log(result);
 //   } catch (err) {
 //     console.log(err);
 //   }
-//   res.send("done");
 // };
 
 exports.getUpdateArea = async (req, res) => {
